@@ -1,5 +1,8 @@
+import Button, { ButtonState } from '@/components/ui/button'
 import Form from '@/components/ui/form'
+import Label from '@/components/ui/form/label'
 import { Head, useForm } from '@inertiajs/react'
+import { ChangeEvent } from 'react'
 
 const Login = () => {
   const { data, setData, post, processing, errors } = useForm({
@@ -7,7 +10,7 @@ const Login = () => {
     password: '',
   })
 
-  function submit(e) {
+  function submit(e: SubmitEvent) {
     e.preventDefault()
     post('/login')
   }
@@ -23,37 +26,36 @@ const Login = () => {
               Entre na sua conta
             </h1>
 
-            <Form onSubmit={submit} className="space-y-4">
-              <label className="block">
-                <span className="block mb-2 text-sm font-medium text-gray-900">Seu E-mail</span>
-
+            <Form onSubmit={submit} className="space-y-4 md:space-y-6">
+              <Label text="Seu E-mail" error={!!errors.email}>
                 <Form.TextInput
                   type="email"
                   value={data.email}
-                  placeholder="your@email.com"
-                  onChange={e => setData('email', e.target.value)}
+                  error={!!errors.email}
+                  placeholder="seu@email.com"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setData('email', e.target.value)}
                 />
-                {errors.email && <span className="block mt-1 text-red-400 text-sm font-medium text-gray-900">{errors.email}</span>}
-              </label>
 
-              <label className="block">
-                <span className="block mb-2 text-sm font-medium text-gray-900">Sua Senha</span>
+                <Form.ErrorLabel>{errors.email}</Form.ErrorLabel>
+              </Label>
 
+              <Label text="Sua Senha" error={!!errors.password}>
                 <Form.PasswordInput
                   type="password"
+                  error={!!errors.password}
                   value={data.password}
-                  onChange={e => setData('password', e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setData('password', e.target.value)}
                 />
-                {errors.password && <span className="block mt-1 text-red-400 text-sm font-medium text-gray-900">{errors.password}</span>}
-              </label>
+                <Form.ErrorLabel>{errors.password}</Form.ErrorLabel>
+              </Label>
 
-              <button
+              <Button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 disabled={processing}
+                state={processing ? ButtonState.Processing : ButtonState.Normal}
               >
                 Entrar
-              </button>
+              </Button>
             </Form>
           </div>
         </div>
