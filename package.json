@@ -4,6 +4,8 @@
     "scripts": {
         "build": "tsc && vite build && vite build --ssr",
         "dev": "vite",
+        "build:ci": "vite build",
+        "test:ci": "vitest run",
         "test": "vitest"
     },
     "devDependencies": {
