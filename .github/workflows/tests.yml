@@ -85,4 +85,5 @@ jobs:
       - name: PHP Lint
         run: ./vendor/bin/pint --test
 
-
+      - name: Javascript Lint
+        run: npm run lint
