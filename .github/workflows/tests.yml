@@ -1,4 +1,4 @@
-name: Backend and Frontend tests
+name: Testing and linting
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  ci:
+  CI:
     runs-on: ubuntu-latest
     env:
       BROADCAST_DRIVER: log
@@ -81,5 +81,8 @@ jobs:
 
       - name: Frontend tests
         run: LARAVEL_BYPASS_ENV_CHECK=1 npm run test:ci
+
+      - name: PHP Lint
+        run: ./vendor/bin/pint --test
 
 
