@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -10,7 +11,7 @@ test('it renders the login page', function () {
         ->get('/login')
         ->assertInertia(fn (Assert $page) => $page
             ->component('Auth/Login')
-    );
+        );
 });
 
 test('users can login', function () {
@@ -62,7 +63,7 @@ describe('if the user passes an invalid email', function () {
         test()
             ->followingRedirectS()
             ->post(route('login.store'), [
-                'email' => 'invalid'
+                'email' => 'invalid',
             ])
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Auth/Login')
